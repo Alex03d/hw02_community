@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Post
 from .models import Group
 
+
 class PostAdmin(admin.ModelAdmin):
     # Перечисляем поля, которые должны отображаться в админке
     list_display = (
@@ -18,6 +19,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('pub_date',)
     # Это свойство сработает для всех колонок: где пусто — там будет эта строка
     empty_value_display = '-пусто-'
+
 
 # При регистрации модели Post источником конфигурации для неё назначаем
 # класс PostAdmin
