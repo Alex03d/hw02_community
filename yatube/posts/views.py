@@ -1,24 +1,21 @@
 from django.shortcuts import render, get_object_or_404
+
 from .models import Post, Group
 
 
-# Главная страница
+CONSTANT = 10
+
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:10]
-    # В словаре context отправляем информацию в шаблон
+    posts = Post.objects.all().select_related('group', 'author')[:CONSTANT]
     context = {
         'posts': posts,
     }
     return render(request, 'posts/index.html', context)
 
 
-# Страница с информацией о постах;
-# view-функция принимает параметр pk из path()
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-
-    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
-    # title = 'Posts'
+    posts = Post.objects.filter(group=group).order_by('-pub_date')[:CONSTANT]
     context = {
         'group': group,
         'posts': posts,
