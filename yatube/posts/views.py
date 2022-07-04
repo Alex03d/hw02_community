@@ -5,6 +5,7 @@ from .models import Post, Group
 
 CONSTANT = 10
 
+
 def index(request):
     posts = Post.objects.all().select_related('group', 'author')[:CONSTANT]
     context = {
