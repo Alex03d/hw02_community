@@ -25,7 +25,7 @@ class Post(models.Model):
     )
     group = models.ForeignKey(
         Group,
-        related_name='no_idea',
+        related_name='date',
         blank=True,
         null=True,
         on_delete=models.SET_NULL
