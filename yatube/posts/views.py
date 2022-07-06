@@ -7,8 +7,10 @@ NUMBER_OF_POSTS: int = 10
 
 
 def index(request):
-    posts = \
-        Post.objects.all().select_related('group', 'author')[:NUMBER_OF_POSTS]
+    posts = (
+        Post.objects.all().
+        select_related('group', 'author')[:NUMBER_OF_POSTS]
+    )
     context = {
         'posts': posts,
     }
