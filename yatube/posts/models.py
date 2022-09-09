@@ -30,3 +30,8 @@ class Post(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
+
+    def __str__(self):
+        # выводим текст поста
+        return self.text
+
