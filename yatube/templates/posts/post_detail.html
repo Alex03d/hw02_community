@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="img/fav/fav.ico" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/fav/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- Подключены иконки, стили и заполенены мета теги -->
+    <title>{{ post_info.text|truncatechars:30 }} </title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-light" style="background-color: lightskyblue">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <img src="/static/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <span style="color:red">Ya</span>tube
+          </a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="row">
+        <aside class="col-12 col-md-3">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Дата публикации: {{ post_info.pub_date|date:"d E Y" }}
+            </li>
+            {% if post_info.group %}
+            <!-- если у поста есть группа -->
+            <li class="list-group-item">
+              Группа: {{post_info.group.title}} <!-- Название группы -->
+            <p>
+            <a href="{% url 'posts:group_posts' post_info.group.slug %}">
+                все записи группы
+              </a>
+            </li>
+            {% endif %}
+            <li class="list-group-item">
+              Автор: {{ author_posts.get_full_name }} <!--Лев Толстой-->
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Всего постов автора:  <span >{{ author_count }}<!-- --></span>
+            </li>
+            <li class="list-group-item">
+              <a href="{% url 'posts:profile' post_info.author.username %}">
+                все посты пользователя
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <article class="col-12 col-md-9">
+          <p> <p>
+          {{ post_info.text }}
+           <!--
+            [Фокшаны.] Еще переходъ до Фокшанъ, во время котораго я ѣхалъ съ
+            Монго. Человѣкъ пустой, но съ твердыми, хотя и ложными убѣжденіями.
+            Генерал[у] по этому должно быть случаю, угодно было спрашивать о мое
+            мъ здоровьи.
+            Свинья! К[о]вырялъ носъ и ничего не написалъ — вотъ 2 упрека за
+            нын[ѣшній]     день. Послѣдній упрекъ становится слишкомъ частъ,
+            хотя походъ и можетъ служить въ немъ отчасти извиненіемъ.
+            Отношенія мои съ товарищами становятся такъ пріятны, что мнѣ
+            жалко бросить штабъ. Здоровье кажется (2) лучше.
+           -->
+          </p>
+        </article>
+      </div>
+    </main>
+    <footer class="border-top text-center py-3">
+      <p>© <!--2021 --> Copyright <span style="color:red">Ya</span>tube</p>
+    </footer>
+  </body>
+</html>
+
+
+{#{% if request.user.id = post_info.author.id %}#}
+{#  <a class="btn btn-primary" href="{% url 'posts:post_edit' post_info.id %}">#}
+{#    редактировать запись#}
+{#  </a>#}
+{#{% endif %}#}
