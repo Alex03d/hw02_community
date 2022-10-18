@@ -1,10 +1,23 @@
 from django.core.paginator import Paginator
 
-from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import user_passes_test, REDIRECT_FIELD_NAME
+
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Post, Group, User
 
 
+def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):
+    actual_decorator = user_passes_test(
+        lambda u: u.is_authenticated,
+        login_url=login_url,
+        redirect_field_name=redirect_field_name
+    )
+    if function:
+        return actual_decorator(function)
+    return actual_decorator
+
+@login_required
 def index(request):
     post_list = Post.objects.all().order_by('-pub_date')
     paginator = Paginator(post_list, 10)
