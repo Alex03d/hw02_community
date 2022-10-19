@@ -34,6 +34,9 @@
           <p> <p>
           {{ post_info.text }}
           </p>
+              <a href="{% url 'posts:post_edit' post_id %}">
+                редактировать
+              </a>
         </article>
       </div>
     </main>
